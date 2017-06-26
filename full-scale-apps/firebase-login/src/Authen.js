@@ -24,7 +24,6 @@ class Authen extends Component {
 
     //Send query to firebase with a promise
     const auth = firebase.auth();
-
     const promise = auth.signInWithEmailAndPassword(email, password);
 
     //TODO: handle login promise
@@ -77,7 +76,32 @@ class Authen extends Component {
     logout.classList.add('hide');
 
     var err = "Thanks for using this app ";
-    this.setState({err: err}); 
+    this.setState({err: err});
+  }
+
+  google(){
+    var provider = new firebase.auth.GoogleAuthProvider();
+    var promise = firebase.auth().signInWithRedirect(provider);
+
+    promise
+    .then(result => {
+      var user = result.user;
+      var logout = document.getElementById('logout');
+      logout.classList.remove('hide');
+      console.log(result);
+      firebase.database().ref('users/' + user.uid).set({
+        email: user.email,
+        name: user.displayName
+      });
+      var err = "Welcome " + user.email;
+      this.setState({err: err});
+
+    })
+    .catch (e => {
+      var msg = e.message;
+      console.log(msg);
+    });
+
   }
 
   constructor(props){
@@ -90,6 +114,7 @@ class Authen extends Component {
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
     this.logout = this.logout.bind(this);
+    this.google = this.google.bind(this);
   }
 
 
@@ -103,7 +128,8 @@ class Authen extends Component {
 
        <button onClick={this.login}>Log In</button>
        <button onClick={this.signup}>Sign Up</button>
-       <button onClick={this.logout} id="logout" className="hide">Log Out</button>
+       <button onClick={this.logout} id="logout" className="hide">Log Out</button><br />
+       <button onClick={this.google} id="google" className="google">Sign In with Google</button>
       </div>
     );
   }
