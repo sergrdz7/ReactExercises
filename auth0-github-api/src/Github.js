@@ -30,7 +30,7 @@ class Github extends Component{
       this.setState({
         username: data.login,
         name: data.name,
-        avatar: data.avata_url,
+        avatar: data.avatar_url,
         repos: data.public_repos,
         followers: data.followers,
         following: data.following,
