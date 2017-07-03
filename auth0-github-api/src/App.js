@@ -28,10 +28,10 @@ class App extends Component {
       //console.log(authResult);
       this.lock.getProfile(authResult.idToken, (error, profile) => {
         if(error){
-          console.log(error);
+          // console.log(error);
           return;
         }
-         console.log(profile);
+        //  console.log(profile);
         // SET PROFILE USING LOCAL STORAGE
         this.setProfile(authResult.idToken, profile);
       });
@@ -57,7 +57,7 @@ class App extends Component {
         idToken: localStorage.getItem('idToken'),
         profile: JSON.parse(localStorage.getItem('profile'))
       }, () => {
-        console.log(this.state);
+        // console.log(this.state);
       });
     }
   }

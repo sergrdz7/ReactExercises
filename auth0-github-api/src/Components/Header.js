@@ -15,7 +15,7 @@ class Header extends Component{
     let navItem;
     if(this.props.idToken){
       //logout
-      console.log("ID: " + this.props.idToken)
+      // console.log("ID: " + this.props.idToken)
       navItem = <NavItem onClick={this.onLogout.bind(this)} href='#'>Logout</NavItem>
     }else{
       //login

@@ -37,7 +37,7 @@ class Github extends Component{
         homeURL: data.html_url,
         notFound: data.message
       })
-      console.log(this.state);
+      // console.log(this.state);
     })
     .catch((error) => console.log('Problem fetching data'))
   }
