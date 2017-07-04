@@ -30,7 +30,7 @@ class Youtube extends Component {
         this.setState({ youTubeResults: youTubeResults });
 
         console.log(this.state.youTubeResults);
-        
+
     })
       .catch((error) => {
       console.warn(error);
@@ -52,9 +52,9 @@ class Youtube extends Component {
         }
 
         {this.frame}
-
-        <input type="number" name="number" placeholder="0" min="1" max="10" />
-
+        {
+        //<input type="number" name="number" placeholder="0" min="1" max="10" />
+        }
         <button onClick={this.clicked}>Get Videos</button>
       </div>
     );
