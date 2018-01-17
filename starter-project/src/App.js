@@ -28,9 +28,18 @@ class App extends Component {
         { name: 'Max', age: 28},
         { name: 'Serg', age: 30},
         { name: event.target.value, age: 40}
-      ]
+      ],
+      showPerson: false
+
     });
     console.log(this.state);
+  }
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPerson;
+    //Toggle showPerson to true or false
+    this.setState({
+      showPerson: !doesShow
+    });
   }
 
   render() {
@@ -42,6 +51,30 @@ class App extends Component {
       padding: '8px',
       cursor: 'pointer'
     }
+
+    let persons = null;
+
+    if (this.state.showPerson) {
+      persons = (
+        <div>
+            <Person
+               name={this.state.persons[0].name}
+              age={this.state.persons[0].age}></Person>
+            <Person
+               name={this.state.persons[1].name}
+              age={this.state.persons[1].age}
+              click={this.switchNameHandler.bind(this, 'Max!')}></Person>
+            <Person
+               name={this.state.persons[2].name}
+              age={this.state.persons[2].age}
+              changed={this.nameChangedHandler}>My Hobbies: Racing</Person>
+        </div>
+
+
+      )
+    }
+
+
     return (
       // <div className="App">
       //   <h1>Refreshing with React</h1>
@@ -54,20 +87,10 @@ class App extends Component {
         <h1>Using State</h1>
 
         <button
-          style ={myStyle} 
-          onClick={() => this.switchNameHandler('Maxiss!!')}>Switch Name</button>
+          style ={myStyle}
+          onClick={this.togglePersonsHandler}>Toggle Names</button>
 
-        <Person
-           name={this.state.persons[0].name}
-          age={this.state.persons[0].age}></Person>
-        <Person
-           name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          click={this.switchNameHandler.bind(this, 'Max!')}></Person>
-        <Person
-           name={this.state.persons[2].name}
-          age={this.state.persons[2].age}
-          changed={this.nameChangedHandler}>My Hobbies: Racing</Person>
+        {persons}
 
       </div>
     );
