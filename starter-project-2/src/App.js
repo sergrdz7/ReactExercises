@@ -8,15 +8,22 @@ import Validation from './Validation';
 class App extends Component {
 
 state = {
-  inputLength: 0
+  userInput: ''
 }
 
-getLengthHandler = (event) => {
-  this.setState({
-    inputLength: event.target.value.length
-  })
-
+getUserInput = (event) => {
+ this.setState({
+   userInput: event.target.value
+ })
 }
+
+
+// getLengthHandler = (event) => {
+//   this.setState({
+//     inputLength: event.target.value.length
+//   })
+//
+// }
 
 
   render() {
@@ -31,9 +38,12 @@ getLengthHandler = (event) => {
           <input
             type="text"
             placeholder="type something"
-            onChange={ (event) => this.getLengthHandler(event)}></input>
+            onChange={this.getUserInput}
+            value={this.state.userInput}></input>
 
-          <Validation length={this.state.inputLength} />
+          <p>{this.state.userInput}</p>
+
+          <Validation length={this.state.userInput.length} />
 
 
       </div>
