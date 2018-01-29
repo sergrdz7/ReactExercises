@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import Validation from './Validation';
+import Char from './Char';
 
 
 class App extends Component {
@@ -17,7 +18,19 @@ getUserInput = (event) => {
  })
 }
 
+deleteCharHandler = (index) => {
+  //Split user input string into an array or characters
+  const text = this.state.userInput.split('');
+  //Remove the character at index
+  text.splice(index, 1);
+  //Joing array into string again
+  const updatedText = text.join('');
 
+  //update state
+  this.setState({
+    userInput: updatedText 
+  })
+}
 // getLengthHandler = (event) => {
 //   this.setState({
 //     inputLength: event.target.value.length
@@ -27,6 +40,14 @@ getUserInput = (event) => {
 
 
   render() {
+
+    const charList = this.state.userInput.split('').map((ch,index) => {
+      return <Char
+        character={ch}
+        key={index}
+        clicked={() => this.deleteCharHandler(index)}></Char>
+    })
+
     return (
       <div className="App" >
         <header className="App-header">
@@ -44,6 +65,7 @@ getUserInput = (event) => {
           <p>{this.state.userInput}</p>
 
           <Validation length={this.state.userInput.length} />
+          {charList}
 
 
       </div>
