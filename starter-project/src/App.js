@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person.js';
+import Radium, { StyleRoot } from 'radium';
 
 class App extends Component {
   state = {
@@ -68,11 +69,17 @@ class App extends Component {
   render() {
 
     const myStyle = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+
+      ':hover': {
+        backgroundColor: 'lightblue',
+        color: 'black'
+      }
     };
 
     let persons = null;
@@ -88,21 +95,27 @@ class App extends Component {
               key={person.id}
               changed={(event) => this.nameChangedHandler(event, person.id)}/>
           })}
+
         </div>
       );
+      //Update color once persons are loaded
+      myStyle.backgroundColor = 'red';
+      myStyle[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'black'
+      }
     };
+    //Turn into one string to use as styling classes on elements
+    const classes = [];
 
-    // {/* /* <Person
-    //    name={this.state.persons[0].name}
-    //   age={this.state.persons[0].age}></Person>
-    // <Person
-    //    name={this.state.persons[1].name}
-    //   age={this.state.persons[1].age}
-    //   click={this.switchNameHandler.bind(this, 'Max!')}></Person>
-    // <Person
-    //    name={this.state.persons[2].name}
-    //   age={this.state.persons[2].age}
-    //   changed={this.nameChangedHandler}>My Hobbies: Racing</Person> */}
+    if (this.state.persons.length <= 2){
+      classes.push('red'); //classes = ['red']
+    }
+
+    if (this.state.persons.length <= 1){
+      classes.push('bold');//classes = ['red','bold']
+    }
+
     return (
       // <div className="App">
       //   <h1>Refreshing with React</h1>
@@ -110,20 +123,22 @@ class App extends Component {
       //   <Person name="Bob" age="25"/>
       //   <Person name="Jess" age="30">My hobbies: Racing</Person>
       // </div>
-      <div className="App">
+      <StyleRoot>
+        <div className="App">
 
-        <h1>Using State</h1>
+          <h1>Using State</h1>
+          <p className={classes.join(' ')}>Using dynamic classes</p>
+          <button
+            style ={myStyle}
+            onClick={this.togglePersonsHandler}>Toggle Names</button>
 
-        <button
-          style ={myStyle}
-          onClick={this.togglePersonsHandler}>Toggle Names</button>
+          {persons}
 
-        {persons}
-
-      </div>
+        </div>
+      </StyleRoot>
     );
   };
   // return React.createELement('div', null, 'h1', 'Hi,  I\'m a react app');
 }
 
-export default App;
+export default Radium(App);

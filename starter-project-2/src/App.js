@@ -28,7 +28,7 @@ deleteCharHandler = (index) => {
 
   //update state
   this.setState({
-    userInput: updatedText 
+    userInput: updatedText
   })
 }
 // getLengthHandler = (event) => {
