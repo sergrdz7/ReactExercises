@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person.js';
-import Radium, { StyleRoot } from 'radium';
+// import Radium, { StyleRoot } from 'radium';
 
 class App extends Component {
   state = {
@@ -76,10 +76,10 @@ class App extends Component {
       padding: '8px',
       cursor: 'pointer',
 
-      ':hover': {
-        backgroundColor: 'lightblue',
-        color: 'black'
-      }
+      // ':hover': {
+      //   backgroundColor: 'lightblue',
+      //   color: 'black'
+      // }
     };
 
     let persons = null;
@@ -123,7 +123,7 @@ class App extends Component {
       //   <Person name="Bob" age="25"/>
       //   <Person name="Jess" age="30">My hobbies: Racing</Person>
       // </div>
-      <StyleRoot>
+
         <div className="App">
 
           <h1>Using State</h1>
@@ -135,10 +135,12 @@ class App extends Component {
           {persons}
 
         </div>
-      </StyleRoot>
+
     );
   };
   // return React.createELement('div', null, 'h1', 'Hi,  I\'m a react app');
 }
 
-export default Radium(App);
+// export default Radium(App);
+
+export default App;
