@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import styles from './App.css';
 import Person from './Person/Person.js';
 // import Radium, { StyleRoot } from 'radium';
 
@@ -68,21 +68,8 @@ class App extends Component {
 
   render() {
 
-    const myStyle = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-
-      // ':hover': {
-      //   backgroundColor: 'lightblue',
-      //   color: 'black'
-      // }
-    };
-
     let persons = null;
+    let btnClass = '';
 
     if (this.state.showPerson) {
       persons = (
@@ -98,38 +85,29 @@ class App extends Component {
 
         </div>
       );
-      //Update color once persons are loaded
-      myStyle.backgroundColor = 'red';
-      myStyle[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'black'
-      }
+      //Set styles using CSS modules
+      btnClass = styles.Red;
+
     };
     //Turn into one string to use as styling classes on elements
     const classes = [];
 
     if (this.state.persons.length <= 2){
-      classes.push('red'); //classes = ['red']
+      classes.push(styles.red); //classes = ['red']
     }
 
     if (this.state.persons.length <= 1){
-      classes.push('bold');//classes = ['red','bold']
+      classes.push(styles.bold);//classes = ['red','bold']
     }
 
     return (
-      // <div className="App">
-      //   <h1>Refreshing with React</h1>
-      //   <Person name="Serg" age="20"/>
-      //   <Person name="Bob" age="25"/>
-      //   <Person name="Jess" age="30">My hobbies: Racing</Person>
-      // </div>
 
-        <div className="App">
+        <div className={styles.App}>
 
           <h1>Using State</h1>
           <p className={classes.join(' ')}>Using dynamic classes</p>
           <button
-            style ={myStyle}
+            className={btnClass}
             onClick={this.togglePersonsHandler}>Toggle Names</button>
 
           {persons}
@@ -138,9 +116,5 @@ class App extends Component {
 
     );
   };
-  // return React.createELement('div', null, 'h1', 'Hi,  I\'m a react app');
 }
-
-// export default Radium(App);
-
 export default App;
