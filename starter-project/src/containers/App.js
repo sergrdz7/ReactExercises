@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import logo from '../logo.svg';
 import styles from './App.css';
-import Person from '../components/Persons/Person/Person.js';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 // import Radium, { StyleRoot } from 'radium';
 
@@ -70,50 +71,23 @@ class App extends Component {
   render() {
 
     let persons = null;
-    let btnClass = '';
-
     if (this.state.showPerson) {
       persons = (
-        <div>
-          {this.state.persons.map((person, index) => {
-            return <ErrorBoundary key={person.id}>
-              <Person
-              name={person.name}
-              age={person.age}
-              click={ () => this.deletePersonHandler(index)}
-              changed={(event) => this.nameChangedHandler(event, person.id)}/>
-            </ErrorBoundary>
-          })}
-
-        </div>
+          <Persons
+            persons={this.state.persons}
+            clicked={this.deletePersonHandler}
+            changed={this.nameChangedHandler} />
       );
-      //Set styles using CSS modules
-      btnClass = styles.Red;
-
     };
-    //Turn into one string to use as styling classes on elements
-    const classes = [];
-
-    if (this.state.persons.length <= 2){
-      classes.push(styles.red); //classes = ['red']
-    }
-
-    if (this.state.persons.length <= 1){
-      classes.push(styles.bold);//classes = ['red','bold']
-    }
-
     return (
 
         <div className={styles.App}>
-
-          <h1>Using State</h1>
-          <p className={classes.join(' ')}>Using dynamic classes</p>
-          <button
-            className={btnClass}
-            onClick={this.togglePersonsHandler}>Toggle Names</button>
-
+          <Cockpit
+            showPerson={this.state.showPerson}
+            persons={this.state.persons}
+            clicked={this.togglePersonsHandler}
+          />
           {persons}
-
         </div>
 
     );
